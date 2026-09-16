@@ -1,0 +1,52 @@
+{
+  "id": "dyslexia-voice-recall",
+  "name": "Voice Recall & Digital Library Integration",
+  "version": "1.0.0",
+  "description": "Enable voice-activated recall from the Digital Library — with automatic answer extraction and PDF docking",
+  "author": "Goose AI Agent",
+  "requires": ["n8n", "OpenRouter API", "SQLite3"],
+  "files": [
+    "voice_hub.py",
+    "voice_recall.js",
+    "voice_recall.api.json",
+    "install.bat"
+  ],
+  "setup": {
+    "windows": {
+      "install_script": "install.bat",
+      "prerequisites": [
+        "Python 3.10+",
+        "Flask (pip install flask)"
+      ]
+    }
+  },
+  "endpoints": {
+    "api_health": "http://localhost:8081/api/health",
+    "api_recall": "http://localhost:8081/api/voice/recall"
+  },
+  "outputs": [
+    {
+      "name": "answer",
+      "type": "string",
+      "description": "Summarized answer from library or LLM extraction"
+    },
+    {
+      "name": "source",
+      "type": "string",
+      "description": "Source filename (e.g., Lawn_Opening.docx)"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Auto-generated tags for search indexing"
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "description": "ISO timestamp of recall request"
+    }
+  ]
+}

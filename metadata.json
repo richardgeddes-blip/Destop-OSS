@@ -1,0 +1,6 @@
+{
+  "name": "Desktop OS",
+  "description": "A web-based desktop environment simulation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

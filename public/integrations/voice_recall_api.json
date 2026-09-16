@@ -1,0 +1,42 @@
+{
+  "name": "voice_recall_api",
+  "version": "1.0.0",
+  "description": "Socket binding for AI Studio to use voice recall from Dyslexia Desktop",
+  "sockets": {
+    "input": {
+      "id": "voice-input",
+      "type": "text",
+      "description": "Transcribed voice query (e.g., 'pull up the lawn aeration notes')",
+      "example": "recall the lawn aeration notes"
+    },
+    "output": {
+      "id": "recall-response",
+      "type": "json",
+      "description": "Answer + source + metadata from library",
+      "structure": {
+        "type": "string",
+        "answer": "string",
+        "source": "string (filename)",
+        "tags": "array of strings",
+        "timestamp": "string (ISO)"
+      },
+      "example": {
+        "type": "recall",
+        "answer": "Schedule early morning cycles (5:30–6:45 AM) for minimal evaporation.",
+        "source": "Lawn_Opening.docx",
+        "tags": ["lawn", "aeration", "schedule"],
+        "timestamp": "2026-09-15T07:10:00"
+      }
+    }
+  },
+  "integration": {
+    "url": "http://localhost:8081/api/voice/recall",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "request_body": {
+      "text": "{{input}}"
+    }
+  }
+}

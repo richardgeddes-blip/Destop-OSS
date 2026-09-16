@@ -1,0 +1,87 @@
+{
+  "workflow_id": "dyslexia-voice-recall-integration",
+  "name": "Voice Recall → Digital Library → Goose Chat",
+  "version": "1.0.0",
+  "description": "Voice query triggers SQLite-based recall, extracts answer, streams to Goose chat and docks source in perimeter tile",
+  "nodes": [
+    {
+      "id": "voice-input",
+      "type": "trigger",
+      "title": "🎤 Voice Input",
+      "description": "Captures voice query via Web Speech API or manual text entry",
+      "settings": {
+        "input_type": "voice",
+        "endpoint": "http://localhost:8081/api/voice/recall"
+      },
+      "output": {
+        "text": "{{input}}"
+      }
+    },
+    {
+      "id": "library-recall",
+      "type": "api_call",
+      "title": "📚 Digital Library Recall",
+      "description": "Send voice query to Voice Hub API and retrieve answer + source",
+      "settings": {
+        "method": "POST",
+        "url": "http://localhost:8081/api/voice/recall",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "text": "{{voice-input.text}}"
+        }
+      },
+      "output": {
+        "answer": "{{response.answer}}",
+        "source": "{{response.source}}",
+        "tags": "{{response.tags}}",
+        "timestamp": "{{response.timestamp}}"
+      }
+    },
+    {
+      "id": "answer-stream",
+      "type": "output",
+      "title": "💬 Goose Chat Stream",
+      "description": "Send summarized answer to active Goose chat session",
+      "settings": {
+        "format": "markdown",
+        "payload": {
+          "type": "recall",
+          "answer": "{{library-recall.answer}}",
+          "source": "{{library-recall.source}}",
+          "timestamp": "{{library-recall.timestamp}}"
+        }
+      }
+    },
+    {
+      "id": "source-dock",
+      "type": "output",
+      "title": "📁 Perimeter Tile Dock",
+      "description": "Dock source document in perimeter tile (left/right column)",
+      "settings": {
+        "layout": "left",
+        "title": "Source: {{library-recall.source}}",
+        "content": {
+          "filename": "{{library-recall.source}}",
+          "tags": "{{library-recall.tags}}",
+          "summary": "{{library-recall.answer}}"
+        }
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": "voice-input",
+      "to": "library-recall"
+    },
+    {
+      "from": "library-recall",
+      "to": "answer-stream"
+    },
+    {
+      "from": "library-recall",
+      "to": "source-dock"
+    }
+  ]
+}
