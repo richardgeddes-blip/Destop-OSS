@@ -5,7 +5,8 @@ import { GoogleGenAI, Type } from "@google/genai";
 
 async function startServer() {
   const app = express();
-  const PORT = Number(process.env.PORT) || 3000;
+  // Replace legacy port binding with dynamic cloud allocation
+  const PORT = Number(process.env.PORT) || 7777;
 
   app.use(express.json());
 
