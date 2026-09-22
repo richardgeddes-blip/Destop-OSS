@@ -1,6 +1,6 @@
 import { Globe, Brain, FileText, Monitor, SquareTerminal, Terminal, Zap, Settings, Library, ListTodo, Edit3 } from 'lucide-react';
 import { AppConfig } from '../types';
-import { ArchitectureApp, ChromeApp, GeminiApp, NotesApp, DesktopMirrorApp, GooseApp, HermesApp, OpenRouterApp, QuickLibraryApp, TodoListApp, PersonalNotepadApp } from './GridApps';
+import { ArchitectureApp, ChromeApp, GeminiApp, NotesApp, DesktopMirrorApp, GooseApp, HermesApp, ServicesApp, OpenRouterApp, QuickLibraryApp, TodoListApp, PersonalNotepadApp } from './GridApps';
 
 export const APPS_CONFIG: Record<string, AppConfig> = {
   architecture: { 
@@ -45,12 +45,19 @@ export const APPS_CONFIG: Record<string, AppConfig> = {
     colorClass: 'text-indigo-400', 
     render: GooseApp 
   },
-  hermes: { 
-    id: 'hermes', 
-    title: 'TERMINAL & DOCKER', 
+  services: { 
+    id: 'services', 
+    title: 'LOCAL SERVICES & DOCKER', 
     icon: Terminal, 
     colorClass: 'text-green-400', 
-    render: HermesApp 
+    render: ServicesApp 
+  },
+  hermes: { 
+    id: 'hermes', 
+    title: 'LOCAL SERVICES & DOCKER', 
+    icon: Terminal, 
+    colorClass: 'text-green-400', 
+    render: ServicesApp 
   },
   openrouter: { 
     id: 'openrouter', 
