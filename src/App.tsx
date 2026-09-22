@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Search, ChevronDown, MonitorSmartphone, X, Zap, Square, Maximize2 } from 'lucide-react';
 import { APPS_CONFIG } from './apps/config';
-import { SlotMapping, SlotPosition, AppConfig } from './types';
+import { SlotMapping, SlotPosition, AppConfig, AppState } from './types';
 import { SeatCard } from './components/SeatCard';
 
 const INITIAL_STATE: SlotMapping = {
@@ -45,10 +45,10 @@ export default function App() {
     const query = recallInput.toLowerCase().trim();
     if (!query) return;
 
-    for (const [position, config] of Object.entries(slots)) {
+    for (const [position, config] of Object.entries(slots) as [SlotPosition, AppState][]) {
       if (position === 'center') continue;
-      if (config.tags.some(tag => tag.toLowerCase().includes(query))) {
-        handleSwap(position as SlotPosition);
+      if (config.tags && config.tags.some(tag => tag.toLowerCase().includes(query))) {
+        handleSwap(position);
         setRecallInput('');
         return;
       }

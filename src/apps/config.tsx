@@ -1,6 +1,6 @@
 import { Globe, Brain, FileText, Monitor, SquareTerminal, Terminal, Zap, Settings, Library, ListTodo, Edit3 } from 'lucide-react';
 import { AppConfig } from '../types';
-import { ArchitectureApp, ChromeApp, GeminiApp, NotesApp, DesktopMirrorApp, GooseApp, HermesApp, ServicesApp, OpenRouterApp, QuickLibraryApp, TodoListApp, PersonalNotepadApp } from './GridApps';
+import { ArchitectureApp, ChromeApp, GeminiApp, NotesApp, DesktopMirrorApp, GooseApp, ServicesApp, OpenRouterApp, QuickLibraryApp, TodoListApp, PersonalNotepadApp } from './GridApps';
 
 export const APPS_CONFIG: Record<string, AppConfig> = {
   architecture: { 
